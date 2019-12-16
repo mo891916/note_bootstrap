@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bootstrap css</title>
+    <meta name="keywords" content="bootstrap">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
+    <!-- codemirror-->
+    <link href="https://cdn.bootcss.com/codemirror/5.27.4/codemirror.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/codemirror/5.27.4/theme/ambiance.css" rel="stylesheet">
+    <!--本地-->
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content article">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="faq-title">
+                <h2 class="text-center">bootstrap css</h2></div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#bc" class="faq-question text-center">Bootstrap CSS 概览</a>
+                <div id="bc" class="panel-collapse collapse faq-answer">
+                    <h3 class="text-success">使用 HTML5 文档类型</h3>
+<pre>< !DOCTYPE html>
+< html>
+....
+< /html></pre>
+                    <h3  class="text-success">viewport手机全屏</h3>
+                    <pre>< meta name="viewport" content="width=device-width,
+height=device-height,//控制viewport的大小
+inital-scale=1.0,//初始的缩放比例,第一次加载的缩放比例
+maximum-scale=1.0,//允许用户缩放到的最大比例
+user-scalable=no;"//用户是否可以手动缩放
+/></pre>
+                    <p class="text-danger">注：官网 <a href="http://github.hubspot.com/pace/docs/welcome/" target="_blank">http://github.hubspot.com/pace/docs/welcome/</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#Grid" class="faq-question text-center">Bootstrap 网格系统</a>
+                <div id="Grid" class="panel-collapse collapse faq-answer">
+                    <h3 class="text-success">分界点阈值</h3>
+                    <table class="table table-striped ">
+                        <tr><th></th><th>超小设备手机（&lt;768px）</th><th>小型设备平板电脑（≥768px）</th><th>中型设备台式电脑（≥992px）</th><th>大型设备台式电脑（≥1200px）</th></tr>
+                        <tr><td>网格行为</td><td>一直是水平的</td><td>以折叠开始，断点以上是水平的</td><td>以折叠开始，断点以上是水平的</td><td>以折叠开始，断点以上是水平的</td></tr>
+                        <tr><td>最大容器宽度</td><td>None (auto)</td><td>750px</td><td>970px</td><td>1170px</td></tr>
+                        <tr><td>Class 前缀</td><td><b>.col-xs-</b></td><td><b>.col-sm-</b></td><td><b>.col-md-</b></td><td><b>.col-lg-</b></td></tr>
+                        <tr><td>列数量和</td><td>12</td><td>12</td><td>12</td><td>12</td></tr>
+                        <tr><td>最大列宽</td><td>Auto</td><td>60px</td><td>78px</td><td>95px</td></tr>
+                        <tr><td>间隙宽度</td><td>30px<br>（一个列的每边分别 15px）</td><td>30px<br>（一个列的每边分别 15px）</td><td>30px<br>（一个列的每边分别 15px）</td><td>30px<br>（一个列的每边分别 15px）</td></tr>
+                        <tr><td>可嵌套</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+                        <tr><td>偏移量</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+                        <tr><td>列排序</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+                    </table>
+                    <h3  class="text-success">偏移列</h3>
+                    <p>偏移可用来给列腾出更多的空间。例如，.col-xs-* 类不支持偏移，但是它们可以简单地通过使用一个空的单元格来实现该效果。<br/>
+                        为了在大屏幕显示器上使用偏移，请使用 .col-md-offset-* 类。这些类会把一个列的左外边距（margin）增加 * 列，其中 * 范围是从 1 到 11。</p>
+                    <p class="text-danger">注：官网 <a href="http://github.hubspot.com/pace/docs/welcome/" target="_blank">http://github.hubspot.com/pace/docs/welcome/</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-sm-12 col-lg-6">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#NProgress" class="faq-question text-center">NProgress进度条</a>
+                <div id="NProgress" class="panel-collapse collapse faq-answer">
+                    <h3  class="text-info">使用方法</h3>
+                    <p class="text-success">方法一：</p>
+                    <pre>$(document).ready(function(){
+    NProgress.start();
+});
+$(window).load(function(){
+    NProgress.done();
+});</pre>
+                    <p class="text-success">方法二：</p>
+                    <pre>(function(){
+      document.onreadystatechange = function(){
+        NProgress.start();
+        console.log(document.readyState);
+        if(document.readyState == "Uninitialized"){
+          NProgress.set(1);
+        }
+        if(document.readyState == "Interactive"){
+          NProgress.set(0.5);
+        }
+        if(document.readyState == "complete"){
+          NProgress.done();
+        }
+      }
+  })();  </pre>
+                    <h3  class="text-info">配置插件</h3>
+                    <p>通过 minimum 来修改最小百分比。</p>
+                    <pre>NProgress.configure({ minimum: 0.1 });  </pre>
+                    <p>通过 template 修改标记结构。为了保证进度条正常工作，需要一个包含 role='bar' 属性的元素</p>
+                    <pre>NProgress.configure({
+  template: "..."
+});</pre>
+                    <p>通过 ease(一个 CSS 中的 easing 值) 调整动画设置和速度 speed （毫秒ms）。</p>
+                    <pre>NProgress.configure({ ease: 'ease', speed: 500 });</pre>
+                    <p>想关闭进度条步进？设置 trickle 为 false。</p>
+                    <pre>NProgress.configure({ trickle: false });</pre>
+                    <p>调整 trickleRate (每次步进增长多少) 和 trickleSpeed (步进间隔，单位毫秒ms).</p>
+                    <pre>NProgress.configure({
+    trickleRate: 0.02, trickleSpeed: 800 });</pre>
+                    <p>设置 showSpinner 为 false禁用进度环</p>
+                    <pre>NProgress.configure({ showSpinner: false });</pre>
+                    <p class="text-danger">注：官网 <a href="https://github.com/rstacruz/nprogress" target="_blank" >https://github.com/rstacruz/nprogress</a></p>
+                </div>
+            </div>
+        </div>-->
+        <!-- <div class="col-sm-12 col-lg-6">
+             <div class="faq-item">
+                 <a data-toggle="collapse" href="#R" class="faq-question text-center">Body中添加</a>
+                 <div id="R" class="panel-collapse collapse faq-answer">
+                     <pre class="text-info">new_element=document.createElement(”script”);
+ new_element.setAttribute(”type”,”text/javascript”);
+ new_element.setAttribute(”src”,”import.js”);
+ document.body.appendChild(new_element);</pre>
+                     <p class="text-primary">
+                         我们来分析一下关键的几句代码：<br/>
+                         首先，我们利用document.createElement(”script”)生成了一个script的标签，设置其
+                         type属性为text/javascript，src为import.js(这里的1.js同2.js放在同一个目录，也可放在不同的目录)。最后将这个标签动态
+                         地加入body中。如此一来，我们就可以调用到不同js文件中的方法了。<br/>
+                         注意：
+                         <script language=”JAVASCRIPT” src=’1.js’></script>
+                         一定要放在body下面。因为在2.js中用到了body（document.body.appendChild(new_
+                         element);)如果将引如2.js的代码放在body上面，也就是说，进入页面后，还没有生成body就已经执行b.js里的document.body.appendChild(new_
+                         element);了,这时body不存在就会抛javascript错误。<br/>
+                     </p>
+                 </div>
+             </div>
+         </div>-->
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+
+<!-- CodeMirror -->
+<script src="https://cdn.bootcss.com/codemirror/5.27.4/codemirror.js"></script>
+<script src="https://cdn.bootcss.com/codemirror/5.27.4/mode/javascript/javascript.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
+            matchBrackets: true,
+            lineNumbers: true,//是否显示行号
+            mode:"shell",　//默认脚本编码
+            lineWrapping:true, //是否强制换行
+            styleActiveLine: true//,
+           // theme: "ambiance"
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS导入JS</title>
+    <meta name="keywords" content="js">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content article">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="faq-title">
+                <h2 class="text-center">JS导入JS</h2></div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#D" class="faq-question text-center">调用文件顶部添加</a>
+                <div id="D" class="panel-collapse collapse faq-answer">
+                    <pre class="text-info">document.write(”<script language=javascript src=’/js/import.js’></script>”); </pre>
+                    <p class="text-danger">注：有时你引用的文件还可能需要引用其他的js,我们需要将需要的那个js文件也以同样的方法引用进来</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#L" class="faq-question text-center">中间界面对js进行应用</a>
+                <div id="L" class="panel-collapse collapse faq-answer">
+                    <p class="text-primary">就是我们可以在某个html中引用了你需要的js文件，我们可以通过拿到那个html文件的对象，然后在通过这个对象去引用js的方法。<br/>
+                        （一般不常用）</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#R" class="faq-question text-center">Body中添加</a>
+                <div id="R" class="panel-collapse collapse faq-answer">
+                    <pre class="text-info">new_element=document.createElement(”script”);
+new_element.setAttribute(”type”,”text/javascript”);
+new_element.setAttribute(”src”,”import.js”);
+document.body.appendChild(new_element);</pre>
+                    <p class="text-primary">
+                        我们来分析一下关键的几句代码：<br/>
+                        首先，我们利用document.createElement(”script”)生成了一个script的标签，设置其
+                        type属性为text/javascript，src为import.js(这里的1.js同2.js放在同一个目录，也可放在不同的目录)。最后将这个标签动态
+                        地加入body中。如此一来，我们就可以调用到不同js文件中的方法了。<br/>
+                        注意：
+                        <script language=”JAVASCRIPT” src=’1.js’></script>
+                        一定要放在body下面。因为在2.js中用到了body（document.body.appendChild(new_
+                        element);)如果将引如2.js的代码放在body上面，也就是说，进入页面后，还没有生成body就已经执行b.js里的document.body.appendChild(new_
+                        element);了,这时body不存在就会抛javascript错误。<br/>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+</body>
+
+</html>

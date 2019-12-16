@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>批处理重命名文件</title>
+    <meta name="keywords" content="batch">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12"><div class="faq-title">
+            <h2 class="text-center">用批处理给文件重命名</h2></div>
+        </div>
+        <div class="col-sm-6  col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#rename1" class="faq-question text-center">文件名前面插入</a>
+                <div id="rename1" class="panel-collapse collapse faq-answer">
+                    <p>例如要给所有歌曲名前面添加歌手的姓名</p>
+                    <pre>
+@ECHO OFF
+title 添加歌手
+set listFile=list.tmp
+del "%listFile%" /q 1>nul 2>nul
+dir *.mp3 /a /b>>"%listFile%"
+FOR /F "tokens=*" %%a IN (
+    'more "%listFile%"'
+ ) DO (
+    ren "%%a" "歌手名%%a" )
+del "%listFile%" /q 1>nul 2>nul
+                   </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6  col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#rename2" class="faq-question text-center">文件名后面插入</a>
+                <div id="rename2" class="panel-collapse collapse faq-answer">
+                    <p>例如要给所有歌曲后面添加一个百度网址</p>
+                    <pre>
+@ECHO OFF
+title 添加网址
+set listFile=list.tmp
+del "%listFile%" /q 1>nul 2>nul
+dir *.mp3 /a /b>>"%listFile%"
+FOR /F "tokens=*" %%a IN (
+    'more "%listFile%"'
+ ) DO (
+    ren "%%a" "%%~nawww.baidu.com%%~xa")
+del "%listFile%" /q 1>nul 2>nul
+                   </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6  col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#rename3" class="faq-question text-center">删除文件名中的相同部分</a>
+                <div id="rename3" class="panel-collapse collapse faq-answer">
+                    <p>例如删除所有文件名中的歌手名</p>
+                    <pre>
+@ECHO OFF
+set deleteString=歌手名
+set listFile=list.tmp
+del "%listFile%" /q 1>nul 2>nul
+dir *.mp3 /a /b>>"%listFile%"
+FOR /F "tokens=*" %%a IN (
+    'more "%listFile%"'  ) DO (
+SETLOCAL ENABLEDELAYEDEXPANSION
+set newName=%%a
+set newName=!newName:%deleteString%=!
+ren "%%a" "!newName!"
+ENDLOCAL
+)
+del "%listFile%" /q 1>nul 2>nul
+PAUSE
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6  col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#rename4" class="faq-question text-center">删除文件名前N个字符</a>
+                <div id="rename4" class="panel-collapse collapse faq-answer">
+                    <p>删除文件名前三个字符</p>
+                    <pre>@echo off&setlocal enabledelayedexpansion
+for /f "delims=" %%i in (
+ 'dir /a-d/b *.txt') do (
+    set n=%%i
+    move "%%i" "!n:~3!")
+pause
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6  col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#rename5" class="faq-question text-center">文件名字符替换</a>
+                <div id="rename5" class="panel-collapse collapse faq-answer">
+                    <pre>
+@echo off
+title 文件名字符替换
+setlocal EnableDelayedExpansion
+:1
+set a=
+set b=
+set c=
+
+cls&echo.
+set /p a= 请输入要被替换的字符:
+cls&echo.
+set /p b= 请输入替换字符，请直接回车:
+
+for /f "delims=" %%a in (
+   'dir /b /a /a-d'
+  ) do (
+     if "%%~fa" neq "%~0" (
+       set xz=%%~na
+       ren "%%~fa" "!xz:%a%=%b%!%%~xa"))
+cls&echo.&set /p c= 按0返回，任意键退出
+if "!c!"=="0" (goto 1) else (exit)
+GOTO :EOF
+                   </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6  col-lg-4">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#rename6" class="faq-question text-center">附：批处理读取文本常用命令</a>
+                <div id="rename6" class="panel-collapse collapse faq-answer">
+                    1、读取文本　　　　　　　　　　用　for /f<br/>
+                    2、文本名有空格　　　　　　　　用 usebackq<br/>
+                    3、文本内容有空格并不要前面的 用 delims=］<br/>
+                    4、扩展到　路径　和　文件名　 用 %%~dpn1<br/>
+                    例子：
+                    <pre>
+
+for /f "delims=" %%i in (1.txt) do (
+    set "str=%%~dpi"
+    set str=!str:*]=!
+    echo !str:~,-1!           %%~ni
+)
+                   </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+</body>
+</html>

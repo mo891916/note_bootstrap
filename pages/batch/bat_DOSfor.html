@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOS中for的用法</title>
+    <meta name="keywords" content="batch">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content article">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="faq-title">
+                <h2 class="text-center">DOS中for的用法</h2></div>
+        </div>
+        <div class="col-sm-12">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#D" class="faq-question text-center">/D</a>
+                <div id="D" class="panel-collapse collapse faq-answer">
+                    <p class="text-info">
+                        for /D %variable in (set) do command [command-parameters]</p>
+                    <p>注意：<br/>
+                        如果Set包含通配符（* 和?），将对与Set 相匹配的每个目录（而不显示其目录中的文件）只能搜索当前目录下的目录名字，不会搜索文件,
+                        看这样的例子<br/>
+                        @echo off<br/>
+                        for /d %%i in (c:\*) do echo %%i<br/>
+                        pause<br/>
+                        比如我们要把当前路径下文件夹的名字只有1-3 个字母的打出来<br/>
+                        @echo off<br/>
+                        for /d %%i in (???) do echo %%i<br/>
+                        pause<br/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#L" class="faq-question text-center">/L</a>
+                <div id="L" class="panel-collapse collapse faq-answer">
+                    <p>指定次数循环<br/>
+                        组合命令：</p>
+                    <p class="text-info"> FOR /L %variable IN (start,step,end) DO Command1
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#R" class="faq-question text-center">/R</a>
+                <div id="R" class="panel-collapse collapse faq-answer">
+                    <p>可以把当前或者你指定路径下的文件名字全部读取,注意是文件名字</p>
+                    <p class="text-info">>FOR /R [[drive:]path] %variable IN (set) DO (Command1……commandn)</p>
+                    <p>
+                        检查以[drive:]path 为根的目录树，指向每个目录中的FOR 语句。如果在/R 后没有指定目录，则使用当前目录。<br/>
+                        请注意2 点：<br/>
+                        1、set 中的文件名如果含有通配符(？或*)，则列举/R 参数指定的目录及其下面的所用子目录中与set 相符合的所有文件，无相符文件的目录则不列举。<br/>
+                        2、相反，如果set 中为具体文件名，不含通配符，则枚举该目录树（即列举该目录及其下面的所有子目录），而不管set
+                        中的指定文件是否存在。这与前面所说的单点（.）枚举目录树是一个道理，单点代表当前目录，也可视为一个文件。<br/>
+                        例：</p>
+                    <pre> for /r c:\ %%i in (boot.ini) do echo %%i</pre>
+                    <p>
+                        运行本例发现枚举了c 盘所有目录，为了只列举boot.ini 存在的目录，可改成下面这样：</p>
+                    <pre> for /r c:\ %%i in (boot.ini
+) do if exist %%i echo %%i</pre>
+                    <p> 用途：<br/>
+                        1、搜索C盘下的所有子目录，如果存在net.exe就显示net.exe的路径来<br/></p>
+                    <pre>for /r c:\ %a in (\
+) do @if exist %a\net.exe @echo %anet</pre>
+                    <p>也可以这样：</p>
+                    <pre>for /r c:\ %i in (net.exe?) do @echo %i</pre>
+                    <p> 2、搜索c盘所有的子目录并把子目录的路径保存在c:\1.txt中</p>
+                    <pre>for /r c: %i in (\
+) do @echo %i >>c:\1.txt</pre>
+                    <p> 3、搜索C盘下是否存在WJJ这个文件夹，如果存在就显示出它的路径</p>
+                    <pre>for /r c:\ %a in (\
+) do @if exist %a\WJJ @echo %aWJJ</pre>
+                    <p> 4、含开关/R的命令有时候被用于通过遍历文件夹来查找某一个文件或文件夹。<br/>
+                        如：罗列出D盘下的所有文件夹</p>
+                    <pre>
+@echo off
+setlocal enabledelayedexpansion
+FOR /R d: %%i IN (.) DO (
+set dd=%%i
+set "dd=!dd:~0,-1!"
+echo !dd!
+)
+pause
+exit </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#F" class="faq-question text-center">/F</a>
+                <div id="F" class="panel-collapse collapse faq-answer">
+                    <p class="text-info">FOR /F ["options"] %variable IN (file-set / "string" / 'command' ) DO
+                        command</p>
+                    <p>选项filenameset 参数指定一个或多个文件名称。在继续到filenameset
+                        中的下一个文件之前，每个文件都会被打开、读取和处理。过程由读取文件、分成独立的文本行及然后将每行解析成零个或更多个令牌组成。然后使用设置为找到的一个或多个令牌字符串的变量值（或多个值）集合调用for
+                        循环体。</p>
+                    <p>利用For命令来实现对一台目标Win2k主机的暴力密码破解。<br/>
+                        我们用net use \\ip\ipc$ "password" /u:"administrator"来尝试这和目标主机进行连接，当成功时记下密码。 最主要的命令是一条：</p>
+                    <pre>for /f i% in (dict.txt
+) do net use \\ip\ipc$ "i%" /u:"administrator"</pre>
+                    <p> 用i%来表示admin的密码，在dict.txt中这个取i%的值用net use 命令来连接。 </p>
+                    <p> 默认情况下，/F 传递每个文件每一行的第一个空白分隔符号。跳过空行。通过指定可选的"options"参数可以覆盖默认的解析行为。</p>
+                    <p> 使用options 令牌选项指定哪些令牌应该作为迭代变量传递。请注意：在没有使用令牌选项时，/F将只检查第一个令牌。<br/>
+                        文件解析过程包括读取输出、字符串或文件内容，将其分成独立的文本行以及再将每行解析成零个或更多个令牌。然后通过设置为令牌的迭代变量值，调用for
+                        循环。带引号的字符串"options"包括一个或多个指定不同解析选项的关键字。这些关键字为:<br/>
+                        eol=c 指一个行注释字符的结尾(就一个)<br/>
+                        skip=n 指在文件开始时忽略的行数。<br/>
+                        delims=xxx 指分隔符集。这个替换了空格和跳格键的默认分隔符集。<br/>
+                        tokens=x,y,m-n<br/>
+                        指定将令牌从每行传递到每个反复的正文。这将导致分配其他变量名。m-n 格式是一个范围，指定从mth 到nth 的令牌。tokens=1,3*
+                        将每行第1个,第3个和剩余字段分别赋予变量%%i，%%j，%%k<br/>
+                        usebackq<br/>
+                        指定新语法已在下类情况中使用: 指定将右引号字符串作为命令执行，单引号字符串是文字字符串命令，您可以使用双引号包括filenameset 中的文件名。<br/>
+                        在作为命令执行一个后引号的字符串并且引号字符为文字字符串命令并允许在 file-set中使用双引号扩起文件名称。<br/>
+                        使用后引号（键盘上数字1 左面的那个键`）。未使用参数usebackq 时：file-set
+                        表示文件，但不能含有空格双引号表示字符串，即"string"单引号表示执行命令，即'command'<br/>
+                        使用参数usebackq 时：file-set 和"file-set"都表示文件<br/>
+                        当文件路径或名称中有空格时，就可以用双引号括起来单引号表示字符串，即'string'后引号表示命令执行，即`command`<br/>
+                        可以在相邻字符串上使用 FOR /F 分析逻辑；方法是，用单引号将括号之间的 filenameset 括起来。这样，该字符串会被当作一个文件中的一个单一输入行。</p>
+                    <p> 用 FOR /F 命令来分析命令的输出。方法是，将括号之间的 filenameset 变成一个反括字符串。该字符串会被当作命令行，传递到一个子
+                        CMD.EXE，其输出会被抓进内存，并被当作文件分析。<br/>
+                        因此， FOR /F "usebackq delims==" %i IN (`set`) DO @echo %i 会枚举当前环境中的环境变量名称。<br/>
+                        对于带有空格的文件名，您需要用双引号将文件名括起来。为了用这种方式来使用双引号，您还需要使用 usebackq 选项，否则，双引号会被理解成是用作定义某个要分析的字符串的。<br/></p>
+                    <p class="text-success">例一</p>
+                    <pre>@echo off
+echo ;注释行,这是临时文件,用完删除>test.txt
+echo 11 段12 段13 段14 段15 段16 段>>test.txt
+echo 21 段,22 段,23 段,24 段,25 段,26 段>>test.txt
+echo 31 段-32 段-33 段-34 段-35 段-36 段>>test.txt
+FOR /F "eol=; tokens=1,3* delims=,- " %%i in (test.txt) do echo %%i %%j %%k
+Pause</pre>
+                    <p>运行显示结果：<br/>
+                        11 段13 段14 段15 段16 段<br/>
+                        21 段23 段24 段,25 段,26 段<br/>
+                        31 段33 段34 段-35 段-36 段<br/>
+                        请按任意键继续. . .<br/>
+                        解释：<br/>
+                        eol=; 分号开头的行为注释行<br/>
+                        tokens=1,3* 将每行第1 段,第3 段和剩余字段分别赋予变量%%i，%%j，%%k<br/>
+                        delims=,- （减号后有一空格）以逗号减号和空格为分隔符，空格必须放在最后</p>
+                    <p class="text-success">例二</p>
+                    <pre>
+@echo off
+FOR /F "delims=" %%i in ('net user'
+) do @echo %%i
+pause</pre>
+                    <p> 这样你本机全部帐号名字就出来了。FOR 会返回命令的每行结果,加那个"delims=" 是为了让空格的行能整行显示出来,不加就只显示空格左边一列!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+</body>
+
+</html>

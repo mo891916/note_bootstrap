@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS实现网页跳转</title>
+    <meta name="keywords" content="js">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content article">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="faq-title">
+                <h2 class="text-center">JS实现网页跳转</h2></div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#D" class="faq-question text-center">按钮式</a>
+                <div id="D" class="panel-collapse collapse faq-answer">
+                    <pre class="text-info"> < INPUT name="百度" type="button" value="GO" onClick=" location.href='http://www.baidu.com' "> </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#L" class="faq-question text-center">链接式</a>
+                <div id="L" class="panel-collapse collapse faq-answer">
+
+                    <pre class="text-info"> < a href=" javascript:history.back() ">返回上一步< /a></pre>
+                    <pre class="text-primary"> < a href=" javascript:history.go(-1) ">返回上一步< /a></pre>
+                    <pre class="text-success"> < a href=" <%=Request.ServerVariables("HTTP_REFERER")%> ">返回上一步< /a> </pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#R" class="faq-question text-center">直接跳转式</a>
+                <div id="R" class="panel-collapse collapse faq-answer">
+                    <pre class="text-info">< script>window.location.href=' http://http://www.baidu.com ';< /script></pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="faq-item">
+                <a data-toggle="collapse" href="#F" class="faq-question text-center">开新窗口</a>
+                <div id="F" class="panel-collapse collapse faq-answer">
+                    <pre class="text-info">< a href="javascript:" onClick=" window.open( 'http://www.baidu.com', '',
+'height=500,width=611,scrollbars=yes,status=yes' )">百度< /a></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+</body>
+
+</html>

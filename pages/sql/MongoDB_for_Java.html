@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MongoDB_for_Java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>【MongoDB for Java】Java操作MongoDB</h1>
+<hr />
+<p>开发环境： <br />
+System：Windows <br />
+IDE：eclipse、MyEclipse 8<br />
+Database：mongoDB<br />
+开发依赖库：JavaEE5、mongo-2.5.3.jar、junit-4.8.2.jar</p>
+<h3>一、准备工作</h3>
+<hr />
+<p>1、 首先，下载mongoDB对Java支持的驱动包</p>
+<p>驱动包下载地址：https://github.com/mongodb/mongo-java-driver/downloads</p>
+<p>mongoDB对Java的相关支持、技术：http://www.mongodb.org/display/DOCS/Java+Language+Center</p>
+<p>驱动源码下载：https://download.github.com/mongodb-mongo-java-driver-r2.6.1-7-g6037357.zip</p>
+<p>在线查看源码：https://github.com/mongodb/mongo-java-driver</p>
+<p>2、 下面建立一个JavaProject工程，导入下载下来的驱动包。即可在Java中使用mongoDB，目录如下：</p>
+<p>clip_image002</p>
+<h3>二、Java操作MongoDB示例</h3>
+<hr />
+<p>在本示例之前你需要启动mongod.exe的服务，启动后，下面的程序才能顺利执行；</p>
+<p>1、 建立SimpleTest.java，完成简单的mongoDB数据库操作</p>
+<p>Mongo mongo = new Mongo();</p>
+<p>这样就创建了一个MongoDB的数据库连接对象，它默认连接到当前机器的localhost地址，端口是27017。</p>
+<p>DB db = mongo.getDB(“test”);</p>
+<p>这样就获得了一个test的数据库，如果mongoDB中没有创建这个数据库也是可以正常运行的。如果你读过上一篇文章就知道，mongoDB可以在没有创建这个数据库的情况下，完成数据的添加操作。当添加的时候，没有这个库，mongoDB会自动创建当前数据库。</p>
+<p>得到了db，下一步我们要获取一个“聚集集合DBCollection”，通过db对象的getCollection方法来完成。</p>
+<p>DBCollection users = db.getCollection(&quot;users&quot;);</p>
+<p>这样就获得了一个DBCollection，它相当于我们数据库的“表”。</p>
+<p>查询所有数据</p>
+<pre><code>DBCursor cur = users.find();
+while (cur.hasNext()) {
+System.out.println(cur.next());
+}
+</code></pre>
+
+<p>完整源码</p>
+<pre><code>package com.hoo.test;
+
+import java.net.UnknownHostException;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.Mongo;
+import com.mongodb.MongoException;
+import com.mongodb.util.JSON;
+
+/**
+ * &lt;b&gt;function:&lt;/b&gt;MongoDB 简单示例
+ * @author hoojo
+ * @createDate 2011-5-24 下午02:42:29
+ * @file SimpleTest.java
+ * @package com.hoo.test
+ * @project MongoDB
+ * @blog http://blog.csdn.net/IBM_hoojo
+ * @email hoojo_@126.com
+ * @version 1.0
+ */
+public class SimpleTest {
+
+    public static void main(String[] args) throws UnknownHostException, MongoException {
+        Mongo mg = new Mongo();
+        //查询所有的Database
+        for (String name : mg.getDatabaseNames()) {
+            System.out.println(&quot;dbName: &quot; + name);
+        }
+
+        DB db = mg.getDB(&quot;test&quot;);
+        //查询所有的聚集集合
+        for (String name : db.getCollectionNames()) {
+            System.out.println(&quot;collectionName: &quot; + name);
+        }
+
+        DBCollection users = db.getCollection(&quot;users&quot;);
+
+        //查询所有的数据
+        DBCursor cur = users.find();
+        while (cur.hasNext()) {
+            System.out.println(cur.next());
+        }
+        System.out.println(cur.count());
+        System.out.println(cur.getCursorId());
+        System.out.println(JSON.serialize(cur));
+    }
+}
+</code></pre>
+
+<p>2、 完成CRUD操作，首先建立一个MongoDB4CRUDTest.java，基本测试代码如下：</p>
+<pre><code>package com.hoo.test;
+
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+import org.bson.types.ObjectId;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import com.mongodb.BasicDBObject;
+import com.mongodb.Bytes;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.Mongo;
+import com.mongodb.MongoException;
+import com.mongodb.QueryOperators;
+import com.mongodb.util.JSON;
+
+/**
+ * &lt;b&gt;function:&lt;/b&gt;实现MongoDB的CRUD操作
+ * @author hoojo
+ * @createDate 2011-6-2 下午03:21:23
+ * @file MongoDB4CRUDTest.java
+ * @package com.hoo.test
+ * @project MongoDB
+ * @blog http://blog.csdn.net/IBM_hoojo
+ * @email hoojo_@126.com
+ * @version 1.0
+ */
+public class MongoDB4CRUDTest {
+
+    private Mongo mg = null;
+    private DB db;
+    private DBCollection users;
+
+    @Before
+    public void init() {
+        try {
+            mg = new Mongo();
+            //mg = new Mongo(&quot;localhost&quot;, 27017);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+        //获取temp DB；如果默认没有创建，mongodb会自动创建
+        db = mg.getDB(&quot;temp&quot;);
+        //获取users DBCollection；如果默认没有创建，mongodb会自动创建
+        users = db.getCollection(&quot;users&quot;);
+    }
+
+    @After
+    public void destory() {
+        if (mg != null)
+            mg.close();
+        mg = null;
+        db = null;
+        users = null;
+        System.gc();
+    }
+
+    public void print(Object o) {
+        System.out.println(o);
+    }
+}
+</code></pre>
+
+<p>3、 添加操作</p>
+<p>在添加操作之前，我们需要写个查询方法，来查询所有的数据。代码如下：</p>
+<pre><code>/**
+ * &lt;b&gt;function:&lt;/b&gt; 查询所有数据
+ */
+private void queryAll() {
+    print(&quot;查询users的所有数据：&quot;);
+    //db游标
+    DBCursor cur = users.find();
+    while (cur.hasNext()) {
+        print(cur.next());
+    }
+}
+
+@Test
+public void add() {
+    //先查询所有数据
+    queryAll();
+    print(&quot;count: &quot; + users.count());
+
+    DBObject user = new BasicDBObject();
+    user.put(&quot;name&quot;, &quot;hoojo&quot;);
+    user.put(&quot;age&quot;, 24);
+    //users.save(user)保存，getN()获取影响行数
+    //print(users.save(user).getN());
+
+    //扩展字段，随意添加字段，不影响现有数据
+    user.put(&quot;sex&quot;, &quot;男&quot;);
+    print(users.save(user).getN());
+
+    //添加多条数据，传递Array对象
+    print(users.insert(user, new BasicDBObject(&quot;name&quot;, &quot;tom&quot;)).getN());
+
+    //添加List集合
+    List&lt;DBObject&gt; list = new ArrayList&lt;DBObject&gt;();
+    list.add(user);
+    DBObject user2 = new BasicDBObject(&quot;name&quot;, &quot;lucy&quot;);
+    user.put(&quot;age&quot;, 22);
+    list.add(user2);
+    //添加List集合
+    print(users.insert(list).getN());
+
+    //查询下数据，看看是否添加成功
+    print(&quot;count: &quot; + users.count());
+    queryAll();
+}
+</code></pre>
+
+<p>4、 删除数据</p>
+<pre><code>@Test
+public void remove() {
+    queryAll();
+    print(&quot;删除id = 4de73f7acd812d61b4626a77：&quot; + users.remove(new BasicDBObject(&quot;_id&quot;, new ObjectId(&quot;4de73f7acd812d61b4626a77&quot;))).getN());
+    print(&quot;remove age &gt;= 24: &quot; + users.remove(new BasicDBObject(&quot;age&quot;, new BasicDBObject(&quot;$gte&quot;, 24))).getN());
+}
+</code></pre>
+
+<p>5、 修改数据</p>
+<pre><code>@Test
+public void modify() {
+    print(&quot;修改：&quot; + users.update(new BasicDBObject(&quot;_id&quot;, new ObjectId(&quot;4dde25d06be7c53ffbd70906&quot;)), new BasicDBObject(&quot;age&quot;, 99)).getN());
+    print(&quot;修改：&quot; + users.update(
+            new BasicDBObject(&quot;_id&quot;, new ObjectId(&quot;4dde2b06feb038463ff09042&quot;)), 
+            new BasicDBObject(&quot;age&quot;, 121),
+            true,//如果数据库不存在，是否添加
+            false//多条修改
+            ).getN());
+    print(&quot;修改：&quot; + users.update(
+            new BasicDBObject(&quot;name&quot;, &quot;haha&quot;), 
+            new BasicDBObject(&quot;name&quot;, &quot;dingding&quot;),
+            true,//如果数据库不存在，是否添加
+            true//false只修改第一天，true如果有多条就不修改
+            ).getN());
+
+    //当数据库不存在就不修改、不添加数据，当多条数据就不修改
+    //print(&quot;修改多条：&quot; + coll.updateMulti(new BasicDBObject(&quot;_id&quot;, new ObjectId(&quot;4dde23616be7c19df07db42c&quot;)), new BasicDBObject(&quot;name&quot;, &quot;199&quot;)));
+}
+</code></pre>
+
+<p>6、 查询数据</p>
+<pre><code>@Test
+public void query() {
+    //查询所有
+    //queryAll();
+
+    //查询id = 4de73f7acd812d61b4626a77
+    print(&quot;find id = 4de73f7acd812d61b4626a77: &quot; + users.find(new BasicDBObject(&quot;_id&quot;, new ObjectId(&quot;4de73f7acd812d61b4626a77&quot;))).toArray());
+
+    //查询age = 24
+    print(&quot;find age = 24: &quot; + users.find(new BasicDBObject(&quot;age&quot;, 24)).toArray());
+
+    //查询age &gt;= 24
+    print(&quot;find age &gt;= 24: &quot; + users.find(new BasicDBObject(&quot;age&quot;, new BasicDBObject(&quot;$gte&quot;, 24))).toArray());
+    print(&quot;find age &lt;= 24: &quot; + users.find(new BasicDBObject(&quot;age&quot;, new BasicDBObject(&quot;$lte&quot;, 24))).toArray());
+
+    print(&quot;查询age!=25：&quot; + users.find(new BasicDBObject(&quot;age&quot;, new BasicDBObject(&quot;$ne&quot;, 25))).toArray());
+    print(&quot;查询age in 25/26/27：&quot; + users.find(new BasicDBObject(&quot;age&quot;, new BasicDBObject(QueryOperators.IN, new int[] { 25, 26, 27 }))).toArray());
+    print(&quot;查询age not in 25/26/27：&quot; + users.find(new BasicDBObject(&quot;age&quot;, new BasicDBObject(QueryOperators.NIN, new int[] { 25, 26, 27 }))).toArray());
+    print(&quot;查询age exists 排序：&quot; + users.find(new BasicDBObject(&quot;age&quot;, new BasicDBObject(QueryOperators.EXISTS, true))).toArray());
+
+    print(&quot;只查询age属性：&quot; + users.find(null, new BasicDBObject(&quot;age&quot;, true)).toArray());
+    print(&quot;只查属性：&quot; + users.find(null, new BasicDBObject(&quot;age&quot;, true), 0, 2).toArray());
+    print(&quot;只查属性：&quot; + users.find(null, new BasicDBObject(&quot;age&quot;, true), 0, 2, Bytes.QUERYOPTION_NOTIMEOUT).toArray());
+
+    //只查询一条数据，多条去第一条
+    print(&quot;findOne: &quot; + users.findOne());
+    print(&quot;findOne: &quot; + users.findOne(new BasicDBObject(&quot;age&quot;, 26)));
+    print(&quot;findOne: &quot; + users.findOne(new BasicDBObject(&quot;age&quot;, 26), new BasicDBObject(&quot;name&quot;, true)));
+
+    //查询修改、删除
+    print(&quot;findAndRemove 查询age=25的数据，并且删除: &quot; + users.findAndRemove(new BasicDBObject(&quot;age&quot;, 25)));
+
+    //查询age=26的数据，并且修改name的值为Abc
+    print(&quot;findAndModify: &quot; + users.findAndModify(new BasicDBObject(&quot;age&quot;, 26), new BasicDBObject(&quot;name&quot;, &quot;Abc&quot;)));
+    print(&quot;findAndModify: &quot; + users.findAndModify(
+        new BasicDBObject(&quot;age&quot;, 28), //查询age=28的数据
+        new BasicDBObject(&quot;name&quot;, true), //查询name属性
+        new BasicDBObject(&quot;age&quot;, true), //按照age排序
+        false, //是否删除，true表示删除
+        new BasicDBObject(&quot;name&quot;, &quot;Abc&quot;), //修改的值，将name修改成Abc
+        true, 
+        true));
+
+    queryAll();
+}
+</code></pre>
+
+<p>mongoDB不支持联合查询、子查询，这需要我们自己在程序中完成。将查询的结果集在Java查询中进行需要的过滤即可。</p>
+<p>7、 其他操作</p>
+<pre><code>public void testOthers() {
+    DBObject user = new BasicDBObject();
+    user.put(&quot;name&quot;, &quot;hoojo&quot;);
+    user.put(&quot;age&quot;, 24);
+
+    //JSON 对象转换        
+    print(&quot;serialize: &quot; + JSON.serialize(user));
+    //反序列化
+    print(&quot;parse: &quot; + JSON.parse(&quot;{ \&quot;name\&quot; : \&quot;hoojo\&quot; , \&quot;age\&quot; : 24}&quot;));
+
+    print(&quot;判断temp Collection是否存在: &quot; + db.collectionExists(&quot;temp&quot;));
+
+    //如果不存在就创建
+    if (!db.collectionExists(&quot;temp&quot;)) {
+        DBObject options = new BasicDBObject();
+        options.put(&quot;size&quot;, 20);
+        options.put(&quot;capped&quot;, 20);
+        options.put(&quot;max&quot;, 20);
+        print(db.createCollection(&quot;account&quot;, options));
+    }
+
+    //设置db为只读
+    db.setReadOnly(true);
+
+    //只读不能写入数据
+    db.getCollection(&quot;test&quot;).save(user);
+}
+</code></pre>
+
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
